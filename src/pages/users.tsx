@@ -73,6 +73,7 @@ const Users:React.FC = () => {
     //控制弹窗是否打开
     const [isModalOpen,setModalOpen]=useState(false);
 
+
     //新增/编辑
     const handleClick=(type:string,rowData?:any)=>{
         setModalOpen(!isModalOpen);
@@ -83,10 +84,10 @@ const Users:React.FC = () => {
             //这里需要对原有数据进行回填并进行修改
             //所以我们需要在不影响原有数据的基础上进行修改 所以需要对数据进行深拷贝
             const cloneData=JSON.parse(JSON.stringify(rowData));
-            console.log(cloneData);
             cloneData.birth=dayjs(cloneData.birth); //将日期转换成对象
             //表单数据回填
             form.setFieldsValue(cloneData); //数据需要和表单中的name属性要对应
+
         }
 
     }
@@ -111,12 +112,17 @@ const Users:React.FC = () => {
     //弹窗确定
     const handleOk=()=>{
         form.validateFields().then((val)=>{
-            console.log(val)
             //日期格式 格式化
             val.birth=dayjs(val.birth).format('YYYY-MM-DD')
             // console.log(val)
             //调后端接口
             if (modalType){ //编辑
+                editUserData(val).then(()=>{
+                    //添加完数据后关闭窗口
+                    handleCancel();
+                    //更新列表数据
+                    getTableData();
+                })
 
             }else{      //新增
                 addUserData(val).then(()=>{
@@ -126,6 +132,8 @@ const Users:React.FC = () => {
                     getTableData();
                 })
             }
+        }).catch((err)=>{
+            console.log(err);
         })
     };
     //弹窗取消
@@ -162,6 +170,12 @@ const Users:React.FC = () => {
                     cancelText="取消"
                 >
                     <Form labelCol={{span:6}} wrapperCol={{span:18}} labelAlign="left" form={form}>
+                    {/* 只有当编辑的时候 表单还需要传回对应用户的id属性 */}
+                    {
+                        modalType&&<Form.Item name='id' hidden>
+                            <Input/>
+                        </Form.Item>
+                    }
                         <Form.Item
                             label="姓名"
                             name="name"
