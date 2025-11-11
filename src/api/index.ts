@@ -30,3 +30,12 @@ export const editUserData = (data:any) => {
         data   //post接口底层axios封装 使用data传递数据
     })
 }
+
+export const deleteUserData = (id:any) => {
+    return http.request({
+        url: "/user/deleteUser",
+        method: "POST",
+        // data   //post接口底层axios封装 使用data传递数据
+        data:{ id }  //第二种方法自动包装成对象
+    })
+}

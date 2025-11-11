@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react";
 import {Button,Form,Input,Table,Popconfirm,Modal,InputNumber,Select,DatePicker } from 'antd';
-import { getUserData,addUserData,editUserData } from "../api";
+import { getUserData,addUserData,editUserData,deleteUserData} from "../api";
 import dayjs from "dayjs";
 
 
@@ -9,11 +9,6 @@ const Users:React.FC = () => {
 
     //创建Form实例
     const [form] =Form.useForm();
-
-    //删除
-    const handleDelete=(data:any)=>{
-
-    }
 
     const tableColumns=[
         {
@@ -62,6 +57,7 @@ const Users:React.FC = () => {
     ]
 
 
+
     const [listData,setListData] = useState({
         name:''
     })
@@ -72,6 +68,12 @@ const Users:React.FC = () => {
     const [modalType,setModalType]=useState(0);
     //控制弹窗是否打开
     const [isModalOpen,setModalOpen]=useState(false);
+    
+    
+    useEffect(()=>{
+        //调用后端接口获取用户数据
+        getTableData()
+    },[])
 
 
     //新增/编辑
@@ -91,6 +93,20 @@ const Users:React.FC = () => {
         }
 
     }
+
+    //删除
+    const handleDelete=(data:any)=>{
+        console.log(data.id)
+        //userApi中的删除函数只需要一个id数据即可 并且我们要传递一个对象所以这里只需要将data.id包装成对象传入即可
+        //第二种方法就是修改deleteUserData 让他自动将数据包装成对象
+        deleteUserData(data.id).then(()=>{
+        // deleteUserData({id:data.id}).then(()=>{
+            //更新列表数据
+            getTableData();            
+        })
+        
+    }
+
     //提交
     const handleFinish=(e:{name:string})=>{
         setListData({
@@ -104,10 +120,8 @@ const Users:React.FC = () => {
         })
 
     }
-    useEffect(()=>{
-        //调用后端接口获取用户数据
-        getTableData()
-    },[])
+
+
 
     //弹窗确定
     const handleOk=()=>{
@@ -142,6 +156,7 @@ const Users:React.FC = () => {
         //清空表单数据
         form.resetFields();
     };
+
 
 
     return (

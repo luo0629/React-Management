@@ -109,6 +109,7 @@ export default {
    * @return {*}
    */
   deleteUser: (config: MockConfig): OperationResponse => {
+    //希望接收到的是一个 {id:'xxxxx'} 的数据对象
     const { id } = JSON.parse(config.body)
     if (!id) {
       return {
