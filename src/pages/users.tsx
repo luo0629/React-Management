@@ -74,12 +74,19 @@ const Users:React.FC = () => {
     const [isModalOpen,setModalOpen]=useState(false);
 
     //新增/编辑
-    const handleClick=(type:string,rowData:any)=>{
+    const handleClick=(type:string,rowData?:any)=>{
         setModalOpen(!isModalOpen);
         if(type=='add'){
             setModalType(0);
         }else{
             setModalType(1);
+            //这里需要对原有数据进行回填并进行修改
+            //所以我们需要在不影响原有数据的基础上进行修改 所以需要对数据进行深拷贝
+            const cloneData=JSON.parse(JSON.stringify(rowData));
+            console.log(cloneData);
+            cloneData.birth=dayjs(cloneData.birth); //将日期转换成对象
+            //表单数据回填
+            form.setFieldsValue(cloneData); //数据需要和表单中的name属性要对应
         }
 
     }
@@ -123,7 +130,9 @@ const Users:React.FC = () => {
     };
     //弹窗取消
     const handleCancel=()=>{
-        setModalOpen(false)
+        setModalOpen(false);
+        //清空表单数据
+        form.resetFields();
     };
 
 
@@ -199,7 +208,7 @@ const Users:React.FC = () => {
                         </Form.Item>
                         <Form.Item
                             label="日期"
-                            name="date"
+                            name="birth"
                             rules={[
                                 {
                                     required:true,
