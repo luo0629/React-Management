@@ -108,11 +108,20 @@ const Users:React.FC = () => {
     }
 
     //提交
-    const handleFinish=(e:{name:string})=>{
+    const handleFinish=(e:{username:string})=>{
+        console.log(e)
         setListData({
-            name:e.name
+            name:e.username
         })
+        //state数据更新是一个异步的过程 所以我们不能在这之后直接获取新的用户数据来更新
+        //getTableData()
     }
+
+    //所以我们需要用useEffect来监听listData的数据变化
+    useEffect(()=>{
+        getTableData()
+    },[listData])
+
     //获取用户数据函数
     const getTableData=()=>{
         getUserData(listData).then(({data})=>{
@@ -165,7 +174,7 @@ const Users:React.FC = () => {
                 <div className="flex justify-between">
                     <Button type="primary" onClick={()=>handleClick('add')}>+新增</Button>
                     <Form layout="inline" onFinish={handleFinish}>
-                        <Form.Item name={'keyword'}>
+                        <Form.Item name={'username'}>
                             <Input placeholder="请输入用户名"></Input>
                         </Form.Item>
                         <Form.Item>
@@ -173,7 +182,7 @@ const Users:React.FC = () => {
                         </Form.Item>
                     </Form>
                 </div>
-                <Table rowKey={'id'} dataSource={tableData} columns={tableColumns}>
+                <Table className="mt-[10px]" rowKey={'id'} dataSource={tableData} columns={tableColumns}>
 
                 </Table>
                 <Modal

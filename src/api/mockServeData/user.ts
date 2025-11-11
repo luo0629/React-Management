@@ -74,7 +74,7 @@ export default {
       if (name && user.name.indexOf(name) === -1 && user.addr.indexOf(name) === -1) return false
       return true
     })
-    const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+    const pageList = mockList.filter((_item, index) => index < limit * page && index >= limit * (page - 1))
     return {
       code: 20000,
       count: mockList.length,
