@@ -14,3 +14,19 @@ export const getUserData = (params:any) => {
         params
     })
 }
+
+export const addUserData = (data:any) => {
+    return http.request({
+        url: "/user/addUser",
+        method: "POST",
+        data   //post接口底层axios封装 使用data传递数据
+    })
+}
+
+export const editUserData = (data:any) => {
+    return http.request({
+        url: "/user/editUser",
+        method: "POST",
+        data   //post接口底层axios封装 使用data传递数据
+    })
+}

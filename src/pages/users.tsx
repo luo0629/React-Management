@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react";
 import {Button,Form,Input,Table,Popconfirm,Modal,InputNumber,Select,DatePicker } from 'antd';
-import { getUserData } from "../api";
+import { getUserData,addUserData,editUserData } from "../api";
 import dayjs from "dayjs";
 
 
@@ -108,6 +108,17 @@ const Users:React.FC = () => {
             //日期格式 格式化
             val.birth=dayjs(val.birth).format('YYYY-MM-DD')
             // console.log(val)
+            //调后端接口
+            if (modalType){ //编辑
+
+            }else{      //新增
+                addUserData(val).then(()=>{
+                    //添加完数据后关闭窗口
+                    handleCancel();
+                    //更新列表数据
+                    getTableData();
+                })
+            }
         })
     };
     //弹窗取消
