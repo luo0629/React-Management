@@ -3,6 +3,8 @@ import { menuConfig } from "../config";
 import * as Icon from '@ant-design/icons';
 import { useNavigate } from "react-router";
 import {Layout, Menu } from 'antd';
+import { useDispatch } from "react-redux";
+import { selectMenuList } from "../store/reducers/tab";
 const { Sider} = Layout;
 
 //动态获取Icon
@@ -34,11 +36,63 @@ const items = menuConfig.map((item:any) => {
 interface CommonAsideProps {
     iscollapsed: boolean;
 }
+interface menuType {
+    icon?: string;
+    path: string;
+    name?: string;
+    label: string;
+    url?: string;
+    children?: {
+        path: string;
+        name?: string;
+        label: string;
+        icon?: string;
+    }[];
+}
+
+interface TabListType{
+    path:string,
+    name?:string,
+    label:string
+}
 
 const CommonAside= ({ iscollapsed }:CommonAsideProps) => {
     const navigate=useNavigate();
+    const dispatch = useDispatch();
+
+    //添加数据到store
+    const setTabsList=(val:TabListType)=>{
+        dispatch(selectMenuList(val));
+    }
+
     //菜单跳转函数
-    const selectMenu=(e:{key:string})=>{
+    const selectMenu=(e:any)=>{
+
+        //获取对应选中菜单项的数据
+        let data:menuType|undefined;
+        menuConfig.forEach(item=>{
+            console.log(item,'item')
+            //如果没有子菜单
+            if(item.path===e.keyPath[e.keyPath.length-1]){
+                data=item
+                //如果有二级菜单
+                if (e.keyPath.length>1){
+                    data=item.children?.find(child=>{
+                        return child.path==e.key;
+                    })
+                }
+            }
+        })
+
+        //防止data是undefined类型
+        if(!data) return;
+        //将点击菜单项对应的数据保存到store里面
+        setTabsList({
+            path:data.path,
+            name:data.name,
+            label:data.label
+        })
+        //跳转页面
         navigate(e.key);
     }
     return (

@@ -17,8 +17,8 @@ const  Echarts = ({style,chartData,isAxisChart=true}:any)=>{
         //设置option
         //有坐标系
         if(isAxisChart){
-            axisOption.xAxis.data=chartData.xData;
-            axisOption.series =chartData.series;
+            axisOption.xAxis.data = chartData.xData;
+            axisOption.series = chartData.series;
             options=axisOption
         }else{
             //没坐标系

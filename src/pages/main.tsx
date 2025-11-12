@@ -6,6 +6,7 @@ import CommonHeader from "../components/commonHeader";
 // Outlet 是 React Router 中的一个组件，用于渲染子路由的组件
 import { Outlet } from "react-router"; 
 import { useSelector } from "react-redux";
+import CommonTag from "../components/commonTag";
 
 
 const Main:React.FC = () => {
@@ -27,7 +28,8 @@ const Main:React.FC = () => {
 
           {/* 头部区域 */}
           <CommonHeader iscollapsed={isCollapse}/>
-
+          {/*  标签页  */}
+          <CommonTag/>
           {/* 内容区域 */}
           <Content className="m-6 p-6 flex-1 bg-white rounded-lg shadow-md overflow-auto">
             <Outlet />

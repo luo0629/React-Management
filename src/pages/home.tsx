@@ -59,7 +59,7 @@ const Home:React.FC = () => {
     useEffect(()=>{
         //调用api中的getUserList() 方法 then(data)中获得调用接口返回的数据data
         getUserList().then(({data})=>{
-            console.log(data);
+            // console.log(data);
             const {tableData,orderData,userData,videoData}=data.data;
             setTableData(tableData);
             //echarts 数据的组装

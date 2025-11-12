@@ -32,13 +32,13 @@ export const menuConfig = [
         icon: "SettingOutlined",
         children: [
             {
-                path: "pages/other/page1",
+                path: "other/page1",
                 name: "page1",
                 label: "页面1",
                 icon: "SettingOutlined",
             },
             {
-                path: "pages/other/page2",
+                path: "other/page2",
                 name: "page2",
                 label: "页面2",
                 icon: "SettingOutlined",

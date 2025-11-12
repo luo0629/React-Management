@@ -1,5 +1,5 @@
-import React from "react";
-const Page1:React.FC = () => {
+
+const Page1 = () => {
     return (
         <>
             <div>
