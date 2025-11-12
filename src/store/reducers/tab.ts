@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 // 创建 tab 状态切片，用于管理侧边栏和标签页相关状态
 const tabSlice = createSlice({

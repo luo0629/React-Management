@@ -1,7 +1,7 @@
 import React from "react";
 import { menuConfig } from "../config";
 import * as Icon from '@ant-design/icons';
-import { useNavigate,useActionData } from "react-router";
+import { useNavigate } from "react-router";
 import {Layout, Menu } from 'antd';
 import { useDispatch } from "react-redux";
 import { selectMenuList } from "../store/reducers/tab";

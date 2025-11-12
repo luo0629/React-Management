@@ -1,4 +1,3 @@
-import React from "react";
 import {Space, Tag} from "antd";
 //获取store中的数据 就需要使用useSelector
 import { useSelector,useDispatch } from "react-redux";
