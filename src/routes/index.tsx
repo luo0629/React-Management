@@ -5,6 +5,8 @@ import Mall from "../pages/mall";
 import Users from "../pages/users";
 import Page1 from "../pages/other/page1";
 import Page2 from "../pages/other/page2";
+import Login from "../pages/login";
+
 const routers=[
     {
         path:"/", //访问‘/’,进行重定向
@@ -40,6 +42,9 @@ const routers=[
                 ]
             }
         ]
+    },{
+        path:"/login",
+        Component:Login
     }
 ]
 //将路由对外暴露 这样可以通过对象来使用路由

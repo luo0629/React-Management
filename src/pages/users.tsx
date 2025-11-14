@@ -99,8 +99,8 @@ const Users:React.FC = () => {
         console.log(data.id)
         //userApi中的删除函数只需要一个id数据即可 并且我们要传递一个对象所以这里只需要将data.id包装成对象传入即可
         //第二种方法就是修改deleteUserData 让他自动将数据包装成对象
-        deleteUserData(data.id).then(()=>{
         // deleteUserData({id:data.id}).then(()=>{
+        deleteUserData(data.id).then(()=>{
             //更新列表数据
             getTableData();            
         })
