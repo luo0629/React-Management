@@ -5,37 +5,18 @@ import { MenuFoldOutlined,MenuUnfoldOutlined } from "@ant-design/icons";
 import logo from '../assets/user.jpg';
 import { useDispatch } from "react-redux";
 import { collapseMenu } from "../store/reducers/tab";
+import { useNavigate } from "react-router";
 
 
-const logout = () => {
-    console.log('退出');
-}
 
 //定义接受的函数参数
 interface CommonHeaderProps {
     iscollapsed: boolean;
 }
 
-const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer">
-          个人中心
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a target="_blank" onClick={logout} rel="noopener noreferrer">
-          退出
-        </a>
-      ),
-    },
-  ];
 
 const CommonHeader = ({ iscollapsed }:CommonHeaderProps) => {
+    const navigate=useNavigate();
 
     //创建dispatch - Hook必须在组件内部调用
     const dispatch = useDispatch();
@@ -46,6 +27,32 @@ const CommonHeader = ({ iscollapsed }:CommonHeaderProps) => {
         dispatch(collapseMenu());
     };
    
+    const logout = () => {
+      //清除token
+      localStorage.removeItem('token');
+      navigate('/login')
+    
+    }
+
+    const items: MenuProps['items'] = [
+      {
+        key: '1',
+        label: (
+          <a target="_blank" rel="noopener noreferrer">
+            个人中心
+          </a>
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <a target="_blank" onClick={()=>logout()} rel="noopener noreferrer">
+            退出
+          </a>
+        ),
+      },
+    ];
+
     return(
         <Header className="flex items-center justify-between">
             <Button
